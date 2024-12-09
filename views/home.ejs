@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <title>Event Registration System</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>Welcome to the Event Registration System</h1>
+            <nav class="navbar">
+                <a href="/">Home</a>
+                <a href="/create-event">Create Event</a>
+                <a href="#services">Services</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" style="background-image: url('/pictures/766c8e62a81a1f7cb2bb710470df4dc2-seattle_desktop.webp');">
+        <div class="hero-overlay">
+            <h2>Discover and Register for Amazing Events</h2>
+            <p>Explore a wide variety of events designed just for you.</p>
+            <a href="/create-event" class="button">Host an Event</a>
+        </div>
+    </section>
+
+    
+
+    <section id="services" class="services">
+        <h2 class="section-title">Our Services</h2>
+        <div class="service-list">
+            <div class="service-card">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>Event Management</h3>
+                <p>Effortlessly manage your events with our intuitive tools.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-users"></i>
+                <h3>Community Engagement</h3>
+                <p>Build meaningful connections through shared experiences.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Analytics</h3>
+                <p>Gain insights into your event's success and audience.</p>
+            </div>
+        </div>
+    </section>
+
+   
+    <section class="events">
+      <h2 class="section-title">Upcoming Events</h2>
+      <div class="event-list">
+          <% events.forEach(event => { %>
+              <div class="event-card">
+                  <img 
+                    src="/pictures/<%= event.category.toLowerCase() === 'music' ? 'music.jpg' : event.category.toLowerCase() === 'seattle' ? 'seattle.webp' : event.category.toLowerCase() === 'sports' ? 'sport.jpg' : event.category.toLowerCase() === 'tech' ? 'tech-conference.webp' : 'default.jpg' %>" 
+                    alt="<%= event.category %>" 
+                    class="event-image">
+                  <div class="event-info">
+                      <h3><%= event.title %></h3>
+                      <p><i class="fas fa-calendar-alt"></i> <%= new Date(event.date).toDateString() %></p>
+                      <p><i class="fas fa-tag"></i> <%= event.category %></p>
+                      <p><i class="fas fa-users"></i> Attendees: <%= event.attendees %> / <%= event.maxAttendees %></p>
+                      <p class="event-description"><%= event.description.substring(0, 100) %>...</p>
+                      <div class="event-actions">
+                          <a href="/register/<%= event.id %>" class="button">Register Now</a>
+
+                          <form action="/delete-event/<%= event.id %>" method="POST" class="inline-form" onsubmit="return confirmDelete('<%= event.title %>');">
+                              <button type="submit" class="button button-danger">Delete</button>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          <% }) %>
+      </div>
+  </section>
+  
+  <script>
+    
+      function confirmDelete(eventTitle) {
+          return confirm(`Are you sure you want to delete the event "${eventTitle}"?`);
+      }
+  </script>
+  
+    <footer class="footer">
+        <p>&copy; <%= new Date().getFullYear() %> Event Registration System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const heroImage = document.querySelector(".hero-image img");
+            heroImage.style.opacity = 0;
+            setTimeout(() => {
+                heroImage.style.transition = "opacity 2s ease-in-out";
+                heroImage.style.opacity = 1;
+            }, 500);
+        });
+    </script>
+</body>
+</html> 
