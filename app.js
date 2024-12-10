@@ -76,16 +76,18 @@ app.post('/create-event', async (req, res) => {
 
 app.get('/register/:id', async (req, res) => {
     const conn = await connect();
-    const [event] = await conn.query('SELECT * FROM events WHERE id = ?', [req.params.id]);
+    const result = await conn.query('SELECT * FROM events WHERE id = ?', [req.params.id]);
+    const event = result[0];
+
     if (!event) {
-        return res.status(404).send('Event not found');
+        return res.send('Event not found');
     }
-    res.render('register', { event, data: {}, errors: [] }); // Always pass `data` and `errors`
+    res.render('register', { event, data: {}, errors: [] });
 });
 
 
 app.post('/register/:id', async (req, res) => {
-    const data = req.body; // Extract form data
+    const data = req.body;
     const eventId = req.params.id; // Get the event ID from the URL
 
     const conn = await connect();
@@ -132,7 +134,7 @@ app.post('/register/:id', async (req, res) => {
     }
 });
 
-// Delete an event
+
 
 
 // Start the server
