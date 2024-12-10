@@ -19,7 +19,6 @@
             </nav>
         </div>
     </header>
-
     <section class="hero" style="background-image: url('/pictures/766c8e62a81a1f7cb2bb710470df4dc2-seattle_desktop.webp');">
         <div class="hero-overlay">
             <h2>Discover and Register for Amazing Events</h2>
@@ -51,6 +50,10 @@
         </div>
     </section>
 
+
+    <!-- Tech Section with Background Image -->
+  
+    <!-- Music Section with Background Image -->
    
     <section class="events">
       <h2 class="section-title">Upcoming Events</h2>
@@ -69,10 +72,8 @@
                       <p class="event-description"><%= event.description.substring(0, 100) %>...</p>
                       <div class="event-actions">
                           <a href="/register/<%= event.id %>" class="button">Register Now</a>
-
-                          <form action="/delete-event/<%= event.id %>" method="POST" class="inline-form" onsubmit="return confirmDelete('<%= event.title %>');">
-                              <button type="submit" class="button button-danger">Delete</button>
-                          </form>
+                          <!-- Delete Button with Confirmation -->
+                          
                       </div>
                   </div>
               </div>
@@ -80,12 +81,7 @@
       </div>
   </section>
   
-  <script>
-    
-      function confirmDelete(eventTitle) {
-          return confirm(`Are you sure you want to delete the event "${eventTitle}"?`);
-      }
-  </script>
+  
   
     <footer class="footer">
         <p>&copy; <%= new Date().getFullYear() %> Event Registration System. All rights reserved.</p>

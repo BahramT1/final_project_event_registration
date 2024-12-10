@@ -10,19 +10,19 @@
     <div class="confirmation-container">
         <div class="confirmation-card">
             <h1>Registration Successful!</h1>
-            <p>Thank you for registering for the event. We have received your details and you are now added to the attendee list.</p>
+            <p>Thank you for registering for the event. Your details have been recorded.</p>
 
             <div class="confirmation-details">
-                <h2>Your Details:</h2>
-                <p><strong>Name:</strong> <%= userName %></p>
-                <p><strong>Email:</strong> <%= email %></p>
-                <p><strong>Event:</strong> <%= eventTitle %></p>
-                <p><strong>Date:</strong> <%= new Date(eventDate).toDateString() %></p>
+                <h3>Details:</h3>
+                <p><strong>Name:</strong> <%= data.userName %></p>
+                <p><strong>Email:</strong> <%= data.email %></p>
+                <p><strong>Event:</strong> <%= data.eventTitle %></p>
+                <p><strong>Date:</strong> <%= data.eventDate %></p>
             </div>
 
             <div class="confirmation-actions">
                 <a href="/" class="button">Back to Home</a>
-                <a href="/register/<%= eventId %>" class="button">Register Another Person</a>
+                <a href="/register/<%= data.eventId %>" class="button">Register Another Person</a>
             </div>
         </div>
     </div>

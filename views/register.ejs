@@ -8,34 +8,27 @@
 </head>
 <body>
     <header class="header">
-        <div class="container">
-            <h1>Register for <%= event.title %></h1>
-        </div>
+        <h1>Register for <%= event.title %></h1>
     </header>
 
-    <section class="registration-container">
-        <div class="registration-card">
-            <h2>Event Details</h2>
-            <p><strong>Title:</strong> <%= event.title %></p>
-            <p><strong>Date:</strong> <%= new Date(event.date).toDateString() %></p>
-            <p><strong>Category:</strong> <%= event.category %></p>
-            <p><strong>Description:</strong> <%= event.description %></p>
-            <p><strong>Attendees:</strong> <%= event.attendees %> / <%= event.maxAttendees %></p>
-
-            <form action="/register/<%= event.id %>" method="POST" class="register-form">
-                <label for="userName">Your Name:</label>
-                <input type="text" id="userName" name="userName" required>
-                
-                <label for="email">Your Email:</label>
-                <input type="email" id="email" name="email" required>
-                
-                <button type="submit" class="button">Register Now</button>
-            </form>
+    <% if (errors && errors.length > 0) { %>
+        <div class="errors">
+            <ul>
+                <% errors.forEach(error => { %>
+                    <li><%= error %></li>
+                <% }); %>
+            </ul>
         </div>
-    </section>
+    <% } %>
 
-    <footer class="footer">
-        <p>&copy; <%= new Date().getFullYear() %> Event Registration System. All rights reserved.</p>
-    </footer>
+    <main class="registration-container">
+        <form class="register-form" action="/register/<%= event.id %>" method="POST">
+            <label for="userName">Name:</label>
+            <input type="text" name="userName" id="userName" value="<%= data ? data.userName : '' %>" required>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" value="<%= data ? data.email : '' %>" required>
+            <button type="submit">Register</button>
+        </form>
+    </main>
 </body>
 </html>
